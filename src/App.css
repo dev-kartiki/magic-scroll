@@ -55,7 +55,6 @@
   transform: rotate(90deg);
   position: absolute;
   float: right;
-  /* 90 degrees counter-clockwise */
   width: 100vh;
 }
 
