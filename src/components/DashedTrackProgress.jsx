@@ -18,9 +18,9 @@ const DashedTrackProgress = ({
   useEffect(() => {
     // Adjust height dynamically based on viewport minus header/footer
     const updateHeight = () => {
-      const headerHeight = 90; // adjust if your header is different
-      const footerHeight = 90; // adjust if your footer is different
-      const availableHeight = window.innerHeight - headerHeight - footerHeight - 100; // 40px padding buffer
+      const headerHeight = 90;
+      const footerHeight = 90; 
+      const availableHeight = window.innerHeight - headerHeight - footerHeight - 100; 
       setTrackHeight(Math.max(200, availableHeight)); // minimum height = 200
     };
 
