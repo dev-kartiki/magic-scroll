@@ -1,0 +1,65 @@
+.dashed-progress-wrapper {
+  position: fixed;
+  top: 50%;
+  left: 85%;
+  transform: translateY(-50%);
+  padding: 1rem;
+  z-index: 1000;
+
+  .progress-title {
+    font-weight: bold;
+    font-style: italic;
+    font-size: medium;
+    margin-bottom: 8px;
+  }
+
+  .progress-container {
+    svg {
+      overflow: visible;
+      cursor: pointer;
+
+      .dashed-track {
+        stroke: #1bef8c;
+        stroke-width: 2;
+        opacity: 0.2;
+      }
+
+      .progress-line,
+      .step-label {
+        opacity: 0;
+        font-size: 14px;
+        transition: opacity 0.3s ease, stroke-width 0.3s ease;
+      }
+
+      .progress-line {
+        stroke: #1bef8c;
+        stroke-width: 2;
+        opacity: 1;
+      }
+
+      .progress-line.active {
+        opacity: 0.6;
+        stroke: #1bef8c;
+      }
+
+      &:hover {
+        .progress-line {
+          stroke: #1bef8c;
+          stroke-width: 4;
+          opacity: 1;
+        }
+
+        .step-label {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+/* Hide progress bar on mobile */
+@media (max-width: 768px) {
+  .dashed-progress-wrapper {
+    display: none;
+  }
+}
