@@ -1,16 +1,19 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import Header from './components/layout/Header'
+import Footer from './components/layout/Footer'
+import Sections from "./components/sections";
+import './assets/styles/main.scss'
+
 
 function App() {
-  const [count, setCount] = useState(10)
-
+ 
   return (
     <>
-      <div>
-        <progress className='rotate-180'  max="100" value={count}></progress>
-      </div>
+      <main className='d-flex'>
+        <Header />
+        <Sections />
+        <Footer />
+      </main>
     </>
   )
 }
