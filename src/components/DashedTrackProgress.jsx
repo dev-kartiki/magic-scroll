@@ -28,6 +28,7 @@ const DashedTrackProgress = ({
       const footerHeight = 90;
       const availableHeight = window.innerHeight - headerHeight - footerHeight - 100;
       setTrackHeight(Math.max(200, availableHeight));
+
     };
     updateHeight();
     window.addEventListener("resize", updateHeight);
