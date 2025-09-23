@@ -25,7 +25,7 @@ const Index = () => {
     window.addEventListener("scroll", handleScroll);
     handleScroll(); // initialize
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [sectionClicked]);
 
   // Reset scale on mobile
   useEffect(() => {
@@ -42,23 +42,22 @@ const Index = () => {
     handleResizeOrInit(); // run on mount
 
     return () => window.removeEventListener('resize', handleResizeOrInit);
-  }, [sectionClicked]);
+  }, []);
 
   return (
     <div className=" mt-4">
-      <div className="row;">
-        {/* Left: Sections */}
+      <div className="row"
+        onClick={() => setSectionClicked(!sectionClicked)} // to trigger zoom reset on mobile
+      >
         <div
           ref={contentRef}
-          onClick={() => setSectionClicked(!sectionClicked)} // to trigger zoom reset on mobile
-          className="col-md-k9 mt-4 content-wrapper"
+          className="col-md-9 mt-4 content-wrapper"
         >
           {sections.map((s, i) => (
             <section
               key={i}
               id={s}
-              className="scroll-section m-4 border-white"
-              style={{ minHeight: "100vh" }} // full screen sections
+              className="scroll-section m-5 border-white min-ht-100"
             >
               <p hidden>{s.toUpperCase()}</p>
               {steps[i]?.element}
@@ -66,19 +65,18 @@ const Index = () => {
           ))}
         </div>
 
-        {/* Right: Progress Bar */}
-        {/* <aside className="col-md-3 d-flex justify-content-center align-items-center"> */}
-          <DashedTrackProgress
-            steps={sections.map((s) => ({ label: s }))}
-            activeStep={activeStep}
-            contentRef={contentRef} // pass ref for zoom animation
-            hasScrollReset={sectionClicked} // trigger zoom reset
-            onStepClick={(index, label) => {
-              setActiveStep(index);
-              document.getElementById(label)?.scrollIntoView({ behavior: "smooth" });
-            }}
-          />
-        {/* </aside> */}
+
+        <DashedTrackProgress
+          steps={sections.map((s) => ({ label: s }))}
+          activeStep={activeStep}
+          contentRef={contentRef} // pass ref for zoom animation
+          hasScrollReset={sectionClicked} // trigger zoom reset
+          onStepClick={(index, label) => {
+            setActiveStep(index);
+            document.getElementById(label)?.scrollIntoView({ behavior: "smooth" });
+          }}
+        />
+
       </div>
     </div>
   );

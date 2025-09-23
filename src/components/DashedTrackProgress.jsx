@@ -42,7 +42,7 @@ const DashedTrackProgress = ({
       const targetY = activeStep * stepHeight + stepHeight / 2;
       gsap.to(thumbRef.current, { duration: 0.4, attr: { cy: targetY }, ease: "power2.out" });
     }
-  }, [activeStep, stepHeight, isDragging]);
+  }, [activeStep, stepHeight, isDragging, hasScrollReset]);
 
   // Zoom effect
   useEffect(() => {
@@ -161,17 +161,9 @@ const DashedTrackProgress = ({
   return (
     <>
       {/* Mobile toggle button */}
-      <nav className="d-flex justify-content-between d-md-none w-25 btn btn-dark position-fixed"
-        style={{ top: "1rem", right: "1rem", zIndex: 1100 }}
-      >
-        <h1>
-          {steps[activeStep]?.label && (
-            <p className="progress-title text-light">{steps[activeStep]?.label}</p>
-          )}
-        </h1>
+      <nav className="d-flex justify-content-between mobile-toggle d-md-none w-25 position-fixed">
         <button
-          className={`d-block d-md-none btn btn-dark position-fixed`}
-          style={{ top: "1rem", right: "1rem", zIndex: 1100 }}
+          className={` mobile-toggle d-block d-md-none btn btn-dark position-fixed `}
           onClick={() => setIsOpen(!isOpen)}
         >
           {isOpen ? <Menu size={24} /> : <Menu size={24} />}
@@ -191,6 +183,7 @@ const DashedTrackProgress = ({
         <div className="progress-container">
           <svg width={77} height={trackHeight}>
             <line
+              className="dashed-track"
               x1={75}
               y1={0}
               x2={75}
@@ -208,8 +201,9 @@ const DashedTrackProgress = ({
 
               return (
                 <React.Fragment key={index}>
-                  {isActive && <line x1={75} y1={y1} x2={75} y2={y2} stroke={color} strokeWidth={width} />}
+                  {isActive && <line className="progress-line" x1={75} y1={y1} x2={75} y2={y2} stroke={color} strokeWidth={width} />}
                   <text
+                    className="step-label text-active"
                     x={65}
                     y={textY}
                     fill={isActive ? color : "#999"}
@@ -217,7 +211,6 @@ const DashedTrackProgress = ({
                     fontWeight={isActive ? "bold" : "normal"}
                     textAnchor="end"
                     alignmentBaseline="middle"
-                    style={{ fontFamily: "sans-serif", cursor: "pointer", userSelect: "none" }}
                     onClick={() => onStepClick(index, step.label)}
                   >
                     {step.label || `Step ${index + 1}`}
@@ -226,12 +219,12 @@ const DashedTrackProgress = ({
               );
             })}
             <circle
+            className="progress-thumb"
               ref={thumbRef}
               cx={75}
               cy={activeStep * stepHeight + stepHeight / 2}
               r={width * 2}
               fill="transparent"
-              style={{ cursor: "grab" }}
               onMouseDown={startDrag}
               onTouchStart={startDrag}
             />

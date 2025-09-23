@@ -24,22 +24,27 @@
         opacity: 0.2;
       }
 
-      .progress-line,
-      .step-label {
-        opacity: 0;
-        font-size: 14px;
-        transition: opacity 0.3s ease, stroke-width 0.3s ease;
-      }
-
       .progress-line {
         stroke: #1bef8c;
         stroke-width: 2;
         opacity: 1;
+        transition: stroke-width 0.3s ease;
+      }
+
+      .step-label {
+        opacity: 0;
+        font-size: 14px;
+        transition: opacity 0.3s ease;
       }
 
       .progress-line.active {
-        opacity: 0.6;
+        opacity: 1;
         stroke: #1bef8c;
+      }
+
+      /* Show labels only on hover */
+      text:hover {
+        opacity: 1 !important;
       }
 
       &:hover {
@@ -59,62 +64,67 @@
 
 /* Adjust progress bar on mobile */
 @media (max-width: 768px) {
- .dashed-progress-wrapper {
-  position: fixed;
-  top: 50%;
-  left: 85%;
-  transform: translateY(-50%);
-  padding: 0.5rem;
-  z-index: 1000;
+  .dashed-progress-wrapper {
+    position: fixed;
+    top: 50%;
+    left: 71%;
+    transform: translateY(-50%);
+    padding: 0.5rem;
+    z-index: 1000;
 
-  .progress-title {
-    font-weight: bold;
-    font-style: italic;
-    font-size: small;
-    margin-bottom: 4px;
-  }
+    .progress-title {
+      font-weight: bold;
+      font-style: italic;
+      font-size: small;
+      margin-bottom: 4px;
+    }
 
-  .progress-container {
-    svg {
-      overflow: visible;
-      cursor: pointer;
+    .progress-container {
+      svg {
+        overflow: visible;
+        cursor: pointer;
 
-      .dashed-track {
-        stroke: #1bef8c;
-        stroke-width: 2;
-        opacity: 0.2;
-      }
+        .dashed-track {
+          stroke: #1bef8c;
+          stroke-width: 2;
+          opacity: 0.2;
+        }
 
-      .progress-line,
-      .step-label {
-        opacity: 0;
-        font-size: 12px;
-        transition: opacity 0.3s ease, stroke-width 0.3s ease;
-      }
-
-      .progress-line {
-        stroke: #1bef8c;
-        stroke-width: 2;
-        opacity: 1;
-      }
-
-      .progress-line.active {
-        opacity: 0.6;
-        stroke: #1bef8c;
-      }
-
-      &:hover {
         .progress-line {
           stroke: #1bef8c;
           stroke-width: 2;
           opacity: 1;
+          transition: stroke-width 0.3s ease;
         }
 
         .step-label {
           opacity: 1;
+          font-size: 12px;
+          transition: opacity 0.3s ease;
+        }
+
+        .progress-line.active {
+          opacity: 1;
+          stroke: #1bef8c;
+        }
+
+        /* Show labels only on hover for mobile */
+        text:hover {
+          opacity: 1 !important;
+        }
+
+        &:hover {
+          .progress-line {
+            stroke: #1bef8c;
+            stroke-width: 2;
+            opacity: 1;
+          }
+
+          .step-label {
+            opacity: 1;
+          }
         }
       }
     }
   }
-}
 }
