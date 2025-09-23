@@ -31,19 +31,7 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setIsMenuOpen(false);
-    }
-  };
-
-  const navItems = [
-    { id: 'Architecture', label: 'Architecture', icon: '🏗️' },
-    { id: 'UX Flows', label: 'UX Flows', icon: '🔄' },
-    { id: 'Deliverables', label: 'Deliverables', icon: '📦' }
-  ];
+ 
 
   return (
     <header className={`header-container ${isScrolled ? 'scrolled' : ''}`}>
