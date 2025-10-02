@@ -1,182 +1,27 @@
-@use '_progress-bar';
-@use '_layout';
-@use '_architecture';
-@use '_deliverables';
-@use '_ux-flows';
-@use 'bootstrap/scss/bootstrap';
+@use "bootstrap/scss/bootstrap";
+@use "./_variables";
 
-body {
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #1a2847 100%);
-  background-size: 400% 400%;
-  animation: subtleBackgroundShift 20s ease infinite;
-  background-attachment: fixed;
-  min-height: 100vh;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  // Add subtle animated overlay for depth
-  &::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background:
-      radial-gradient(circle at 15% 25%, rgba(102, 126, 234, 0.08) 0%, transparent 50%),
-      radial-gradient(circle at 85% 75%, rgba(67, 233, 123, 0.06) 0%, transparent 50%),
-      radial-gradient(circle at 50% 50%, rgba(240, 147, 251, 0.04) 0%, transparent 50%);
-    pointer-events: none;
-    z-index: -1;
-  }
+.section {
+  transform: scale(1);
+  transition: transform 0.5s ease-in-out;
+  will-change: transform;
 }
 
-@keyframes subtleBackgroundShift {
-
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-
-  33% {
-    background-position: 100% 25%;
-  }
-
-  66% {
-    background-position: 50% 100%;
-  }
+.section--zoomed {
+  transform: scale(1.05);
+  z-index: 10;
 }
 
-.starfield-background {
-  background:
-    radial-gradient(2px 2px at 20px 30px, rgba(255, 255, 255, 0.15), transparent),
-    radial-gradient(2px 2px at 40px 70px, rgba(255, 255, 255, 0.1), transparent),
-    radial-gradient(1px 1px at 90px 40px, rgba(255, 255, 255, 0.08), transparent),
-    radial-gradient(1px 1px at 130px 80px, rgba(255, 255, 255, 0.12), transparent),
-    linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #1a2847 100%);
-  background-size:
-    150px 100px,
-    200px 120px,
-    180px 90px,
-    220px 110px,
-    400% 400%;
-  animation:
-    starMove 80s linear infinite,
-    subtleBackgroundShift 20s ease infinite;
-  background-attachment: fixed;
-}
-
-@keyframes starMove {
-  from {
-    transform: translateY(0px);
-  }
-
-  to {
-    transform: translateY(-100px);
-  }
-}
-
-.particle-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+.section--zoomed-out {
+  transform: scale(0.65);
   pointer-events: none;
-  z-index: -1;
-  background:
-    radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(102, 126, 234, 0.05) 0%, transparent 50%),
-    radial-gradient(circle at 40% 40%, rgba(67, 233, 123, 0.03) 0%, transparent 50%);
-  animation: particleDrift 30s ease-in-out infinite alternate;
 }
 
-@keyframes particleDrift {
-  0% {
-    transform: translateX(0px) translateY(0px);
-  }
-
-  100% {
-    transform: translateX(20px) translateY(-20px);
-  }
-}
-
-#root {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
-  position: relative;
-  z-index: 1;
-}
-
-// Ensure scroll sections work properly with fixed background
-.scroll-sections {
-  position: relative;
-  z-index: 2;
-}
-
-.scroll-section {
-  position: relative;
-  border: 1px solid rgba(251, 239, 239, 0.571);
-
-  // Add subtle glow on scroll sections
-  &::before {
-    content: '';
-    position: absolute;
-    top: -10px;
-    left: -10px;
-    right: -10px;
-    bottom: -10px;
-    background: linear-gradient(135deg,
-        rgba(102, 126, 234, 0.02) 0%,
-        rgba(67, 233, 123, 0.02) 50%,
-        rgba(240, 147, 251, 0.02) 100%);
-    border-radius: 24px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: -1;
-  }
-
-  &:hover::before {
-    opacity: 1;
-  }
-}
-
-// Media queries for responsive background
-@media (max-width: 768px) {
-  body {
-    background-attachment: scroll;
-  }
-
-  .starfield-background {
-    background-attachment: scroll;
-    animation: subtleBackgroundShift 15s ease infinite;
-  }
-}
-
-// High contrast mode support
-@media (prefers-contrast: high) {
-  body {
-    background: #000000;
-
-    &::before {
-      display: none; // remove subtle overlays for better contrast
-    }
-  }
-
-  .scroll-section {
-    border: 2px solid rgba(255, 255, 255, 0.3);
-  }
-}
-
-@media (hover: none) {
-  .scroll-section::before {
-    display: none;
-  }
-}
-
-h1 {
-  font-size: clamp(1.75rem, 3vw, 2.5rem);
-}
-
-p {
-  font-size: clamp(1rem, 2vw, 1.25rem);
+.section--normal {
+  transform: scale(1);
+  pointer-events: auto;
 }
